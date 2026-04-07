@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import roc_auc_score
 
 @st.cache_data
 def load_data():
@@ -10,7 +11,6 @@ def load_data():
     return data
 
 data = load_data()
-
 
 @st.cache_resource
 def train_model(data):
@@ -25,10 +25,13 @@ def train_model(data):
     model = RandomForestClassifier(class_weight="balanced", random_state=42)
     model.fit(x_train, y_train)
 
-    return model
+    
+    y_pred_proba = model.predict_proba(x_test)[:, 1]
+    auc = roc_auc_score(y_test, y_pred_proba)
 
-model = train_model(data)
+    return model, auc
 
+model, auc = train_model(data)
 
 def predict_addiction(daily_screen_time_hours, social_time):
     input_data = np.array([[daily_screen_time_hours, social_time]])
@@ -60,22 +63,27 @@ def get_suggestions(risk):
     else:
         return [
             "High risk of addiction detected",
-            "Limit social media usage and other usage strictly",
+            "Limit social media usage strictly",
             "Avoid phone usage before sleep",
             "Consider professional guidance if needed",
             "Engage in offline hobbies"
         ]
 
-
 st.set_page_config(page_title="Smartphone Addiction Predictor", layout="centered")
 
 st.title("📱 Smartphone Addiction Risk Predictor")
-st.write("Predict your addiction probability based on your usage habits.")
+st.markdown("### 🎯 Check your smartphone usage risk level")
 
+st.write("Adjust your daily habits and see how they impact your addiction risk.")
 
-daily_screen_time_hours = st.slider("daily screen time hours (hours)", 0.0, 15.0, 5.0)
-social_time = st.slider("Social Media Usage (hours)", 0.0, 10.0, 2.0)
+# Inputs
+daily_screen_time_hours = st.slider(
+    "Daily Screen Time (hours)", 0.0, 15.0, 5.0
+)
 
+social_time = st.slider(
+    "Social Media Usage (hours)", 0.0, 10.0, 2.0
+)
 
 if st.button("Check Addiction Risk"):
     prob = predict_addiction(daily_screen_time_hours, social_time)
@@ -86,7 +94,6 @@ if st.button("Check Addiction Risk"):
 
     st.write(f"**Addiction Probability:** {prob:.2f}")
 
-   
     if risk == "Low Risk":
         st.success(f"Risk Level: {risk}")
     elif risk == "Moderate Risk":
@@ -97,6 +104,17 @@ if st.button("Check Addiction Risk"):
     st.subheader("💡 Suggestions")
     for s in suggestions:
         st.write(f"- {s}")
+
+st.markdown("---")
+
+st.subheader("📊 Model Information")
+st.write("This model predicts smartphone addiction risk using:")
+st.write("- Daily Screen Time")
+st.write("- Social Media Usage")
+
+st.write(f"**Model AUC Score:** {auc:.2f}")
+
+st.info("⚠️ This tool is for educational purposes only and not a medical diagnosis.")
 
 st.markdown("---")
 st.write("Built using Machine Learning + Streamlit 🚀")
