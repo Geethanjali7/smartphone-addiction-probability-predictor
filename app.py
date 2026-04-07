@@ -14,7 +14,7 @@ data = load_data()
 
 @st.cache_resource
 def train_model(data):
-    features = data[["weekend_screen_time", "social_media_hours"]]
+    features = data[["daily_screen_time_hours", "social_media_hours"]]
     X = features
     y = data["addicted_label"]
 
@@ -30,8 +30,8 @@ def train_model(data):
 model = train_model(data)
 
 
-def predict_addiction(weekend_time, social_time):
-    input_data = np.array([[weekend_time, social_time]])
+def predict_addiction(daily_screen_time_hours, social_time):
+    input_data = np.array([[daily_screen_time_hours, social_time]])
     prob = model.predict_proba(input_data)[0][1]
     return prob
 
@@ -52,7 +52,7 @@ def get_suggestions(risk):
         ]
     elif risk == "Moderate Risk":
         return [
-            "Reduce weekend screen time gradually",
+            "Reduce daily screen time gradually",
             "Set app usage limits",
             "Balance screen time with productive tasks",
             "Practice digital detox once a week"
@@ -73,12 +73,12 @@ st.title("📱 Smartphone Addiction Risk Predictor")
 st.write("Predict your addiction probability based on your usage habits.")
 
 
-weekend_time = st.slider("Weekend Screen Time (hours)", 0.0, 15.0, 5.0)
+weekend_time = st.slider("daily_screen_time_hours (hours)", 0.0, 15.0, 5.0)
 social_time = st.slider("Social Media Usage (hours)", 0.0, 10.0, 2.0)
 
 
 if st.button("Check Addiction Risk"):
-    prob = predict_addiction(weekend_time, social_time)
+    prob = predict_addiction(daily_screen_time_hours, social_time)
     risk = get_risk_level(prob)
     suggestions = get_suggestions(risk)
 
