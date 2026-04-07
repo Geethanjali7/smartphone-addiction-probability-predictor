@@ -73,7 +73,7 @@ st.title("📱 Smartphone Addiction Risk Predictor")
 st.write("Predict your addiction probability based on your usage habits.")
 
 
-weekend_time = st.slider("daily_screen_time_hours (hours)", 0.0, 15.0, 5.0)
+daily_screen_time_hours = st.slider("daily screen time hours (hours)", 0.0, 15.0, 5.0)
 social_time = st.slider("Social Media Usage (hours)", 0.0, 10.0, 2.0)
 
 
