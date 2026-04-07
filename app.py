@@ -60,7 +60,7 @@ def get_suggestions(risk):
     else:
         return [
             "High risk of addiction detected",
-            "Limit social media usage strictly",
+            "Limit social media usage and other usage strictly",
             "Avoid phone usage before sleep",
             "Consider professional guidance if needed",
             "Engage in offline hobbies"
@@ -69,7 +69,7 @@ def get_suggestions(risk):
 
 st.set_page_config(page_title="Smartphone Addiction Predictor", layout="centered")
 
-st.title("📱 Smartphone Addiction Risk Predictor")
+st.title("📱 Smartphone Addiction probability Risk Predictor")
 st.write("Predict your addiction probability based on your usage habits.")
 
 
