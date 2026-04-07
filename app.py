@@ -69,7 +69,7 @@ def get_suggestions(risk):
 
 st.set_page_config(page_title="Smartphone Addiction Predictor", layout="centered")
 
-st.title("📱 Smartphone Addiction probability Risk Predictor")
+st.title("📱 Smartphone Addiction Risk Predictor")
 st.write("Predict your addiction probability based on your usage habits.")
 
 
