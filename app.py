@@ -63,7 +63,7 @@ def get_suggestions(risk):
     else:
         return [
             "High risk of addiction detected",
-            "Limit social media usage strictly",
+            "Limit social media usage and daily phone usage strictly",
             "Avoid phone usage before sleep",
             "Consider professional guidance if needed",
             "Engage in offline hobbies"
