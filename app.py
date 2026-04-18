@@ -71,8 +71,8 @@ def get_suggestions(risk):
 
 st.set_page_config(page_title="Smartphone Addiction Predictor", layout="centered")
 
-st.title("📱 Smartphone Addiction Risk Predictor")
-st.markdown("### 🎯 Check your smartphone usage risk level")
+st.title(" Smartphone Addiction Risk Predictor")
+st.markdown("Check your smartphone usage risk level")
 
 st.write("Adjust your daily habits and see how they impact your addiction risk.")
 
@@ -90,7 +90,7 @@ if st.button("Check Addiction Risk"):
     risk = get_risk_level(prob)
     suggestions = get_suggestions(risk)
 
-    st.subheader("🔍 Results")
+    st.subheader("Results")
 
     st.write(f"**Addiction Probability:** {prob:.2f}")
 
@@ -101,20 +101,20 @@ if st.button("Check Addiction Risk"):
     else:
         st.error(f"Risk Level: {risk}")
 
-    st.subheader("💡 Suggestions")
+    st.subheader("Suggestions")
     for s in suggestions:
         st.write(f"- {s}")
 
 st.markdown("---")
 
-st.subheader("📊 Model Information")
+st.subheader(" Model Information")
 st.write("This model predicts smartphone addiction risk using:")
 st.write("- Daily Screen Time")
 st.write("- Social Media Usage")
 
 st.write(f"**Model AUC Score:** {auc:.2f}")
 
-st.info("⚠️ This tool is for educational purposes only and not a medical diagnosis.")
+st.info(" This tool is for educational purposes only and not a medical diagnosis.")
 
 st.markdown("---")
-st.write("Built using Machine Learning + Streamlit 🚀")
+st.write("Built using Machine Learning + Streamlit ")
