@@ -105,16 +105,4 @@ if st.button("Check Addiction Risk"):
     for s in suggestions:
         st.write(f"- {s}")
 
-st.markdown("---")
 
-st.subheader(" Model Information")
-st.write("This model predicts smartphone addiction risk using:")
-st.write("- Daily Screen Time")
-st.write("- Social Media Usage")
-
-st.write(f"**Model AUC Score:** {auc:.2f}")
-
-st.info(" This tool is for educational purposes only and not a medical diagnosis.")
-
-st.markdown("---")
-st.write("Built using Machine Learning + Streamlit ")
